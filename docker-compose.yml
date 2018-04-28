@@ -1,0 +1,25 @@
+version: '2'
+services:
+  db:
+   image: postgres:9.6-alpine
+   restart: always
+   environment:
+    POSTGRES_USER: 'd1'
+    POSTGRES_PASSWORD: 'Cjkzhbc1234'
+    POSTGRES_DB: 'd1_db'
+   volumes:
+     - ./postgres-data:/var/lib/postgresql/data
+   ports:
+     - 5432:5432
+   restart: always
+  parser:
+   build: .
+   volumes:
+    - .:/app
+   depends_on:
+    - db
+   restart: on-failure
+   entrypoint: /app/start_app.sh
+
+
+
