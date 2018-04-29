@@ -67,7 +67,8 @@ class BookCountryPipeline(object):
                          .filter(Product.name_product == item['name_product']))
         state_product = self.session.query(query_product.exists()).scalar()
         if state_product is False:
-            product = Product(name_product=item['code_product'],
+            product = Product(name_product=item['name_product'],
+                              code_product=item['code_product'],
                               price=item['price'],
                               manufacturer=item['manufacturer'],
                               kind=item['kind'],
