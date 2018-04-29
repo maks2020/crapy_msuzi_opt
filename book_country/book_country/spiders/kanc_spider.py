@@ -24,7 +24,9 @@ class KancSpiderSpider(CrawlSpider):
         'http://bookcountry-shop.ru/kategorii/tovary-dlya-ofisa.html',
         'http://bookcountry-shop.ru/kategorii/tvorchestvo.html',
         'http://bookcountry-shop.ru/kategorii/pismennye-prinadlegnosti.html',
-        'http://bookcountry-shop.ru/kategorii/shkolnye-prinadlegnosti.html'
+        'http://bookcountry-shop.ru/kategorii/shkolnye-prinadlegnosti.html',
+        'http://bookcountry-shop.ru/kategorii/kartiny.html',
+        'http://bookcountry-shop.ru/kategorii/igrushki-i-igry.html'
     ]
 
     rules = (
