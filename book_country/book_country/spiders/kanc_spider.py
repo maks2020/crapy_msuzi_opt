@@ -39,10 +39,10 @@ class KancSpiderSpider(CrawlSpider):
         if ('<div class="not_available" id="not_available">Нет в наличии</div>'
                 not in soup):
             item = BookCountryItem()
-            item['name_product'] = (soup.select_one('h1')
-                                    .get_text(strip=True)
-                                    .split('-')[0].strip())
-            item['code_product'] = (soup.select_one('span#product_code')
+            item['name_product'] = soup.select_one('h1').get_text(strip=True)
+
+            item['code_product'] = (soup.select_one('span.jshop_code_prod >'
+                                                    ' span#product_code')
                                     .get_text(strip=True))
             item['price'] = float(soup.select_one('span#block_price')
                                   .get_text(strip=True).split()[0])
