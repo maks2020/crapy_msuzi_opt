@@ -32,6 +32,7 @@ class Product(Base):
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship('Category', back_populates='product')
     image_name = Column(String)
+    status = Column(String)
 
 
 class BookCountryPipeline(object):
@@ -72,9 +73,17 @@ class BookCountryPipeline(object):
                               price=item['price'],
                               manufacturer=item['manufacturer'],
                               kind=item['kind'],
-                              image_name=item['image_name'])
+                              image_name=item['image_name'],
+                              status=item['status'])
             category.product.append(product)
             self.session.add(category)
+            self.session.commit()
+        elif (item['status'] != query_product.status or
+              item['price'] != query_product.price):
+            if item['status'] != query_product.status:
+                query_product.status = item['status']
+            if item['price'] != query_product.price:
+                query_product.price = item['price']
             self.session.commit()
         else:
             print('Product %s is exist' % item['name_product'])

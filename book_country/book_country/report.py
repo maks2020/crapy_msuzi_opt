@@ -17,7 +17,7 @@ class Report(BookCountryPipeline):
         for item in datas:
             data = [item.id, item.name_product, item.code_product,
                     item.price, item.manufacturer, item.kind,
-                    item.category.category,
+                    item.category.category, item.status,
                     'http://194.67.206.56:8090/images_kanc/%s'
                     % item.image_name]
             print(data)

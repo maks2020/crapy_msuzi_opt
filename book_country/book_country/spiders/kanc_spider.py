@@ -38,32 +38,34 @@ class KancSpiderSpider(CrawlSpider):
 
     def parse_product(self, response):
         soup = BeautifulSoup(response.text, 'lxml')
-        if ('<div class="not_available" id="not_available">Нет в наличии</div>'
-                not in soup):
-            item = BookCountryItem()
-            item['name_product'] = soup.select_one('h1').get_text(strip=True)
+        item = BookCountryItem()
+        item['name_product'] = soup.select_one('h1').get_text(strip=True)
 
-            item['code_product'] = (soup.select_one('span.jshop_code_prod >'
-                                                    ' span#product_code')
-                                    .get_text(strip=True))
-            item['price'] = float(soup.select_one('span#block_price')
-                                  .get_text(strip=True).split()[0])
-            extra_fields = soup.select('div.extra_fields span'
-                                       '.extra_fields_value')
-            item['manufacturer'] = extra_fields[0].get_text(strip=True)
-            item['kind'] = extra_fields[1].get_text(strip=True)
-            item['category'] = (soup.select('ul.breadcrumb li')[-2]
+        item['code_product'] = (soup.select_one('span.jshop_code_prod >'
+                                                ' span#product_code')
                                 .get_text(strip=True))
-            if 'noimage.gif' not in response.text:
-                href = soup.select_one('a.zoom').get('href')
-                image_name = href.split('/')[-1]
-                item['image_name'] = image_name
-            else:
-                item['image_name'] = None
-            yield item
-            if item['image_name'] is not None:
-                yield scrapy.Request(href, callback=self.parse_image,
-                                     meta={'image_name': item['image_name']})
+        item['price'] = float(soup.select_one('span#block_price')
+                              .get_text(strip=True).split()[0])
+        extra_fields = soup.select('div.extra_fields span'
+                                   '.extra_fields_value')
+        item['manufacturer'] = extra_fields[0].get_text(strip=True)
+        item['kind'] = extra_fields[1].get_text(strip=True)
+        item['category'] = (soup.select('ul.breadcrumb li')[-2]
+                            .get_text(strip=True))
+        if 'noimage.gif' not in response.text:
+            href = soup.select_one('a.zoom').get('href')
+            image_name = href.split('/')[-1]
+            item['image_name'] = image_name
+        else:
+            item['image_name'] = None
+        if 'Нет в наличии' in soup:
+            item['status'] = 'нет в наличии'
+        else:
+            item['status'] = 'в наличии'
+        yield item
+        if item['image_name'] is not None:
+            yield scrapy.Request(href, callback=self.parse_image,
+                                 meta={'image_name': item['image_name']})
 
     @staticmethod
     def parse_image(response):

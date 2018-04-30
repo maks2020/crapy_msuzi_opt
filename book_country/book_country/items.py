@@ -16,3 +16,4 @@ class BookCountryItem(scrapy.Item):
     kind = scrapy.Field()
     category = scrapy.Field()
     image_name = scrapy.Field()
+    status = scrapy.Field()
