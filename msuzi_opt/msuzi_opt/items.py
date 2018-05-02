@@ -13,12 +13,11 @@ class MsuziOptProductItem(scrapy.Item):
     name = scrapy.Field()
     props = scrapy.Field()
     descr = scrapy.Field()
-    price = scrapy.Field()
     referer = scrapy.Field()
     name_images = scrapy.Field()
 
 
 class MsuziOptCatalogItem(scrapy.Item):
-    catalog = scrapy.Field()
+    name_catalog = scrapy.Field()
     url_catalog = scrapy.Field()
 
