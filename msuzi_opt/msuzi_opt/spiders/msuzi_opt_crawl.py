@@ -30,15 +30,15 @@ class MsuziOptCrawlSpider(CrawlSpider):
              callback='parse_catalog',
              follow=True),
         Rule(LxmlLinkExtractor(restrict_css=('#goods_main h1 > a',)),
-         callback='parse_product')
+             callback='parse_product')
     )
 
     def parse_catalog(self, response):
         item = MsuziOptCatalogItem()
         soup = BeautifulSoup(response.text, 'lxml')
         item['url_catalog'] = response.url
-        item['catalog'] = [a.get_text(strip=True)
-                           for a in soup.select('a.title')]
+        item['name_catalog'] = '::'.join([a.get_text(strip=True)
+                           for a in soup.select('a.title')])
         yield item
 
     def parse_product(self, response):
@@ -88,16 +88,17 @@ class MsuziOptCrawlSpider(CrawlSpider):
         else:
             return None, None
         products_prop_tds = [tr.select('td') for tr in prop_products_html]
+        length_prop = len(products_prop_tds)
         product_props = []
         for products_prop_td in products_prop_tds:
-            product_prop = [td.get_text(strip=True)
-                            for td in products_prop_td[1:]]
+            if length_prop > 1:
+                product_prop = [td.get_text(strip=True)
+                                for td in products_prop_td[1:]]
+            if length_prop == 1:
+                product_prop = [td.get_text(strip=True)
+                                for td in products_prop_td[:-1]]
             product_props.append(product_prop)
         return product_props, product_descr
-
-    @staticmethod
-    def handler_decsr(soup):
-        ...
 
     @staticmethod
     def parse_image(response):
