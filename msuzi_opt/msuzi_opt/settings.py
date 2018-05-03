@@ -11,8 +11,8 @@
 
 BOT_NAME = 'msuzi_opt'
 
-SPIDER_MODULES = ['msuzi_opt.spiders']
-NEWSPIDER_MODULE = 'msuzi_opt.spiders'
+SPIDER_MODULES = ['msuzi_opt.msuzi_opt.spiders']
+NEWSPIDER_MODULE = 'msuzi.opt.msuzi_opt.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -65,7 +65,7 @@ CONCURRENT_REQUESTS = 500
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'msuzi_opt.pipelines.MsuziOptPipeline': 300,
+   'msuzi_opt.msuzi_opt.pipelines.MsuziOptPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -12,7 +12,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from constants import (PG_SERVER_IP, PG_PORT, PG_DB_NAME_MSUZI, PG_PASSWORD,
                        PG_USER)
-import msuzi_opt
+import msuzi_opt.msuzi_opt as msuzi_opt
 
 Base = declarative_base()
 
