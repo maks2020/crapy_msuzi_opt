@@ -12,8 +12,8 @@ from scrapy.settings import Settings
 import bs4
 from bs4 import BeautifulSoup
 
-import settings as my_setting
-from items import MsuziOptProductItem, MsuziOptCatalogItem
+import msuzi_opt.settings as my_setting
+from msuzi_opt.items import MsuziOptProductItem, MsuziOptCatalogItem
 from constants import IMAGE_PATH
 
 
