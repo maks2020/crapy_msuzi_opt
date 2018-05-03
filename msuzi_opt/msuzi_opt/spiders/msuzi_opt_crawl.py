@@ -12,8 +12,8 @@ from scrapy.settings import Settings
 import bs4
 from bs4 import BeautifulSoup
 
-import msuzi_opt.settings as my_setting
-from msuzi_opt.items import MsuziOptProductItem, MsuziOptCatalogItem
+import settings as my_setting
+from items import MsuziOptProductItem, MsuziOptCatalogItem
 from constants import IMAGE_PATH
 
 
@@ -22,7 +22,15 @@ class MsuziOptCrawlSpider(CrawlSpider):
     allowed_domains = ['msuzi-opt.ru']
     start_urls = [
                     'http://www.msuzi-opt.ru/catalog294_1.html',
-                    'http://www.msuzi-opt.ru/catalog341_1.html'
+                    'http://www.msuzi-opt.ru/catalog341_1.html',
+                    'http://www.msuzi-opt.ru/catalog348_1.html',
+                    'http://www.msuzi-opt.ru/catalog349_1.html',
+                    'http://www.msuzi-opt.ru/catalog350_1.html',
+                    'http://www.msuzi-opt.ru/catalog351_1.html',
+                    'http://www.msuzi-opt.ru/catalog352_1.html',
+                    'http://www.msuzi-opt.ru/catalog353_1.html',
+                    'http://www.msuzi-opt.ru/catalog347_1.html',
+                    'http://www.msuzi-opt.ru/catalog354_1.html'
                   ]
 
     rules = (
