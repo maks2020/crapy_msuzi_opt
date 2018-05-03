@@ -91,7 +91,7 @@ class MsuziOptPipeline(object):
                    query_catalog.one().name_catalog == '')):
                 query_catalog.one().name_catalog = item['name_catalog']
                 self.session.commit()
-                print(query_catalog.one.name_catalog)
+                print(111111111, query_catalog.one().name_catalog)
         if isinstance(item, msuzi_opt.items.MsuziOptProductItem):
             name = item['name']
             code_product = item['descr'][0].split()[1]
