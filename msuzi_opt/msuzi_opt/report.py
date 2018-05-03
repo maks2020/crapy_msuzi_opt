@@ -26,7 +26,7 @@ class Report(MsuziOptPipeline):
             product_images = (self.session.query(Image.name, )
                               .join(Product).filter(Product.name == code_name)
                               .all())
-            product_images = ['http://194.67.206.56:8090/images_kanc/%s' % image
+            product_images = ['http://194.67.206.56:8090/images_msuzi/%s' % image
                               for image, in product_images]
             catalog, = self.session.query(Catalog.name_catalog).join(Product).filter(Product.name == code_name).one()
             d_2 = defaultdict(list)
