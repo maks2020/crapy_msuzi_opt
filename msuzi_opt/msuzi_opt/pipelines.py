@@ -87,9 +87,11 @@ class MsuziOptPipeline(object):
                 self.session.add(catalog)
                 self.session.commit()
             elif (state_catalog is True and
-                  query_catalog.one().name_catalog is None):
+                  (query_catalog.one().name_catalog is None or
+                   query_catalog.one().name_catalog == '')):
                 query_catalog.one().name_catalog = item['name_catalog']
                 self.session.commit()
+                print(query_catalog.one.name_catalog)
         if isinstance(item, msuzi_opt.items.MsuziOptProductItem):
             name = item['name']
             code_product = item['descr'][0].split()[1]
