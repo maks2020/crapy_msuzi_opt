@@ -93,7 +93,11 @@ class MsuziOptPipeline(object):
         if isinstance(item, msuzi_opt.items.MsuziOptProductItem):
             name = item['name']
             code_product = item['descr'][0].split()[1]
-            description = item['descr'][1]
+            try:
+                description = item['descr'][1]
+            except IndexError as err:
+                print('Error: %s' % err)
+                description = None
             name_images = item['name_images']
             props = item['props']
             referer = item['referer']
