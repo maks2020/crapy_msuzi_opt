@@ -86,12 +86,14 @@ class MsuziOptPipeline(object):
                                   url_catalog=url_catalog)
                 self.session.add(catalog)
                 self.session.commit()
-            elif (state_catalog is True and
-                  (query_catalog.one().name_catalog is None or
-                   query_catalog.one().name_catalog == '')):
-                query_catalog.one().name_catalog = item['name_catalog']
-                self.session.commit()
-                print(111111111, query_catalog.one().name_catalog)
+            else:
+                print(22222222, query_catalog.one().name_catalog)
+                if (state_catalog is True and
+                      (query_catalog.one().name_catalog is None or
+                       query_catalog.one().name_catalog == '')):
+                    query_catalog.one().name_catalog = item['name_catalog']
+                    self.session.commit()
+                    print(111111111, query_catalog.one().name_catalog)
         if isinstance(item, msuzi_opt.items.MsuziOptProductItem):
             name = item['name']
             code_product = item['descr'][0].split()[1]
