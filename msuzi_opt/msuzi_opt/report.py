@@ -28,14 +28,17 @@ class Report(MsuziOptPipeline):
                               .all())
             product_images = ['http://194.67.206.56:8090/images_msuzi/%s' % image
                               for image, in product_images]
-            catalog, = self.session.query(Catalog.name_catalog).join(Product).filter(Product.name == code_name).one()
+            catalog, = (self.session.query(Catalog.name_catalog).join(Product)
+                        .filter(Product.name == code_name).one())
+            description, = (self.session.query(Product.description)
+                            .filter(Product.name == code_name).one())
             d_2 = defaultdict(list)
             for size_color, price in item:
                 d_2[price].append(size_color)
             price, sizes = list(d_2.items())[0]
             results.append((code_name, ';'.join(sizes), price,
                             ' && '.join(product_images)))
-            data = (code_name, ';'.join(sizes), price, catalog,
+            data = (code_name, description, ';'.join(sizes), price, catalog,
                     ' && '.join(product_images))
             print(data)
             sh.append(data)
