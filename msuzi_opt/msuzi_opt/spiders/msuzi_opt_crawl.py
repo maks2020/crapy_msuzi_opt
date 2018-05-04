@@ -34,18 +34,19 @@ class MsuziOptCrawlSpider(CrawlSpider):
                   ]
 
     rules = (
-        Rule(LxmlLinkExtractor(restrict_css=('#main > p:nth-child(2) > a',)),
-             callback='parse_catalog',
-             follow=True),
         Rule(LxmlLinkExtractor(restrict_css=('#goods_main h1 > a',)),
-             callback='parse_product')
+             callback='parse_product'),
+        Rule(LxmlLinkExtractor(), callback='parse_catalog',),
+        Rule(LxmlLinkExtractor(restrict_css=('#main > p:nth-child(2) > a',)),
+             follow=True)
     )
 
     def parse_catalog(self, response):
         item = MsuziOptCatalogItem()
         soup = BeautifulSoup(response.text, 'lxml')
         item['url_catalog'] = response.url
-        item['name_catalog'] = soup.title.get_text(strip=True)
+        item['name_catalog'] = '::'.join([a.get_text(strip=True)
+                                          for a in soup.select('a.title')])
         yield item
 
     def parse_product(self, response):
