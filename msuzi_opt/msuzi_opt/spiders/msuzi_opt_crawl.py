@@ -46,7 +46,7 @@ class MsuziOptCrawlSpider(CrawlSpider):
         soup = BeautifulSoup(response.text, 'lxml')
         item['url_catalog'] = response.url
         item['name_catalog'] = '::'.join([a.get_text(strip=True)
-                                          for a in soup.select('a.title')])
+                                          for a in soup.select('#main h1 a.title')])
         yield item
 
     def parse_product(self, response):
