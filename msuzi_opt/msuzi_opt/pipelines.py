@@ -130,17 +130,7 @@ class MsuziOptPipeline(object):
                 self.session.commit()
             else:
                 product = query_product.one()
-                # size_all_db = set(self.session.query(SizePrice.size)
-                #                   .join(Product)
-                #                   .filter(Product.name == name_full).all())
-                # print(size_all_db)
-                # size_all_getting = set([(size,) for size, _ in props])
-                # product_report = (self.session.query(Product.name,
-                #                                      Product.description,
-                #                                      Catalog.name_catalog,
-                #                                      SizePrice,
-                #                                      Image).join(Catalog).join(Image).join(SizePrice)
-                #                   .filter(Product.name == name_full).all())
+
                 for size, price in props:
                     query_size = (self.session.query(SizePrice).join(Product)
                                   .filter(Product.name == name_full, SizePrice.size == size))
